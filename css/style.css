@@ -1,0 +1,89 @@
+body {
+  font-family: monospace;
+}
+
+.hi {
+  -moz-animation-name: fadeOut 1 forwards 0.1s;
+
+  -webkit-animation-name: fadeOut 1 forwards 0.1s;
+
+  animation: fadeOut 1 forwards 0.1s;
+}
+
+.hi {
+    text-align:center;
+    line-height: 100vh;
+    font-size:40vh;
+}
+
+
+@-moz-keyframes fadeOut {
+    0% {
+        -moz-opacity:100%;
+    }
+    100% {
+        -moz-opacity:0;
+    }
+}
+
+@-webkit-keyframes fadeOut {
+    0% {
+        -webkit-opacity:100%;
+    }
+    100% {
+        -webkit-opacity:0;
+    }
+}
+
+@keyframes fadeOut {
+    0.1% {
+        opacity:100%;
+    }
+    100% {
+        opacity:0;
+    }
+}
+
+#map {
+}
+/*
+    Map and markers
+*/
+.markerTitle{
+  font-family:Roboto;
+}
+
+.favorite {
+  color:lightgray;
+}
+
+.favorite:hover {
+  color:gray;
+}
+
+.markerExit {
+  float:right;
+  color: seagreen;
+}
+
+.markerExit:hover {
+  color: lightseagreen;
+}
+
+.fav {
+  position:fixed;
+  color:white;
+  letter-spacing:1px;
+  top:1vh;
+  right:1vw;
+  padding:40px;
+  z-index: 999;
+  background-color:rgba(0, 0, 0, 0.5);
+  font-family:Roboto;
+  -webkit-box-shadow: 0px 0px 3px 3px #ffffff;
+  box-shadow: 0px 0px 3px 3px #ffffff;
+}
+
+.fav:hover {
+  background-color:rgba(0, 0, 0, 0.8);
+}
