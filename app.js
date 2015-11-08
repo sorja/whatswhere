@@ -35,7 +35,8 @@ var markerIcon = L.icon({
 });
 
 var youAreHere = L.divIcon({
-  html: '<i class="youarehere material-icons">&#xE8B4;</i>'
+  className: 'youarehere material-icons',
+  html: '<i>&#xE8B4;</i>'
 });
 
 var youAreHereCOORDS = null;
@@ -94,6 +95,7 @@ function getEvents(){
   	{
     'start':'today',
     'end':'today',
+    'page_size': 999,
     'include':'location'
     }, handleEvents )
 }
@@ -101,11 +103,27 @@ function handleEvents(object) {
   const events = object.data;
   events.map(
     function(val, i){
-      console.log(val)
-      const eventName = (val.name.fi || val.name.en);
-      const imageURL = val.location.image;
-      const eventImage = imageURL ? '<img style="width:100%" src='+imageURL+' alt="'+eventName+'" />' : '<br/>';
+      if(!val || !val.location || !val.location.position) return;
       const eventURL = val.info_url;
+      const eventName = (val.name.fi || val.name.en);
+
+      //List all events
+      const eventNameSubstring = eventName.length > 25 ? eventName.substring(0,25)+'...' : eventName;
+      const eventNameLink = eventURL ? '<a href="'+eventURL+'">'+eventNameSubstring+'</a>' : eventNameSubstring;
+
+      /*
+        Add to list
+      */
+      $('.allevents')
+        .removeClass('hidden')
+        .append('<li>'+eventNameLink+'</li>');
+
+
+      /*
+          Do the markers
+      */
+      const imageURL = val.location ? val.location.image : null;
+      const eventImage = imageURL ? '<img style="width:100%" src='+imageURL+' alt="'+eventName+'" />' : '<br/>';
       const eventLink = eventURL ? '<a href='+eventURL.fi+'>&#xE879;</a>' : null;
       // title: event title
       // closed event? opacity 50%
@@ -173,6 +191,7 @@ function removeFav(element){
 }
 
 function markerClickHandler(a,b,c){
+  return;
   var options = {
     fromPlace: "60.1605403,24.9345752",
     mode: "WALK,TRANSIT",
@@ -198,6 +217,10 @@ function markerClickHandler(a,b,c){
     console.log(data)
   }
 
+}
+// add to display it again
+function closeAllEvents(){
+  $('.allevents').addClass('hidden');
 }
 
 window.Log = function(a,b,c){

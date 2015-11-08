@@ -84,10 +84,48 @@ body {
   box-shadow: 0px 0px 3px 3px #ffffff;
 }
 
+.allevents {
+  position:fixed;
+  bottom:25px;
+  right:1vw;
+
+  font-family:Roboto;
+  letter-spacing:1px;
+
+  padding:40px;
+  z-index: 999;
+  max-height: 50vh;
+  overflow:scroll;
+
+  color:white;
+  background-color:rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0px 0px 3px 3px #ffffff;
+  box-shadow: 0px 0px 3px 3px #ffffff;
+}
+.allevents li {
+  color:rgba(200, 200, 200, 1);
+}
+.allevents a{
+  text-decoration: none;
+  color:white;
+}
+
 .fav:hover {
   background-color:rgba(0, 0, 0, 0.8);
 }
 
 .youarehere{
   color:indianred;
+}
+
+.hidden {
+  display:none;
+}
+
+.close {
+  float:right;
+  position:absolute;
+  top:2%;
+  right:2%;
+  cursor:pointer;
 }
