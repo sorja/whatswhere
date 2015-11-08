@@ -3,17 +3,17 @@ body {
 }
 
 .hi {
-  -moz-animation-name: fadeOut 1 forwards 0.1s;
+  -moz-animation-name: fadeOut 1 forwards 3s;
 
-  -webkit-animation-name: fadeOut 1 forwards 0.1s;
+  -webkit-animation-name: fadeOut 1 forwards 3s;
 
-  animation: fadeOut 1 forwards 0.1s;
+  animation: fadeOut 1 forwards 3s;
 }
 
 .hi {
+    display:block;
     text-align:center;
     line-height: 100vh;
-    font-size:40vh;
 }
 
 
@@ -86,4 +86,8 @@ body {
 
 .fav:hover {
   background-color:rgba(0, 0, 0, 0.8);
+}
+
+.youarehere{
+  color:indianred;
 }

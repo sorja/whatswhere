@@ -43,7 +43,11 @@ var youAreHereCOORDS = null;
 /*
   Hello message
 */
-$('div').append('<h1 class="hi">'+getGreeting()+'</h1>').css('font-family', ""+getFont());
+const greeting = getGreeting();
+$('div')
+  .append('<span class="hi">'+greeting+'</span>')
+  .css('font-size', (100/greeting.length)+'vw')
+  .css('font-family', ""+getFont());
 
 /*
   Always good to have hard coded magic numbers
@@ -97,11 +101,20 @@ function handleEvents(object) {
   const events = object.data;
   events.map(
     function(val, i){
+      console.log(val)
+      const eventName = (val.name.fi || val.name.en);
+      const imageURL = val.location.image;
+      const eventImage = imageURL ? '<img style="width:100%" src='+imageURL+' alt="'+eventName+'" />' : '<br/>';
+      const eventURL = val.info_url;
+      const eventLink = eventURL ? '<a href='+eventURL.fi+'>&#xE879;</a>' : null;
       // title: event title
       // closed event? opacity 50%
-      const markerText = '<br/><b class="markerTitle">'+ (val.name.fi || val.name.en) + '</b><br/><br/>'
+      const markerText = '<br/><b class="markerTitle">'+ eventName + '</b><br/><br/>'
+                        + eventImage
                         +'<i name="marker-'+i+'" onclick="handleFavoriteClick(this)" class="favorite material-icons">&#xE87D;</i>'
-                        +'<i class="markerExit material-icons">&#xE879;</i>';
+                        +'<i class="markerExit material-icons">'
+                        + eventLink
+                        +'</i>';
       const _event = objToEvent(val);
 
       markers.push({
@@ -110,7 +123,8 @@ function handleEvents(object) {
                   .bindPopup(markerText)
                   .on('click', markerClickHandler),
           _event: _event,
-          i: i
+          i: i,
+          fav: false,
         });
     }
   );
@@ -142,9 +156,20 @@ function handleFavoriteClick(element){
 }
 
 function handleFavoritesList(i){
+  if(markers[i].fav) {
+    $('#marker-'+i).remove();
+    return;
+  }
+  markers[i].fav = true;
+
   const listElem = $('.fav ul');
-  listElem.append('<li>'+markers[i]['_event'].name.fi+'</li>')
-  console.log(markers[i])
+
+  listElem.append('<li onclick="removeFav(this)" id="marker-'+i+'">'+markers[i]['_event'].name.fi+'</li>')
+}
+
+function removeFav(element){
+  const i = $(element)[0].attributes.id.value.split('-')[1];
+  $('#marker-'+i).remove();
 }
 
 function markerClickHandler(a,b,c){
